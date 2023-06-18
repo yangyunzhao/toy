@@ -1,3 +1,10 @@
+/**
+ * Copyright © Mahjong squad
+ * All Rights Reserved.
+ * Authors:
+ *          yangyunzhao@qq.com 
+ */
+
 int main() {
     return 0;
 }

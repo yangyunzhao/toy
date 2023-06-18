@@ -1,3 +1,10 @@
+/**
+ * Copyright © Mahjong squad
+ * All Rights Reserved.
+ * Authors:
+ *          yangyunzhao@qq.com 
+ */
+
 %define parse.error verbose
 %locations
 
