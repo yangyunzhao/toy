@@ -14,6 +14,7 @@ endif()
 
 # 添加 include 目录
 include_directories(include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third_party/catch2/include)
 
 # 执行 Python 脚本并移动生成的文件
 execute_process(

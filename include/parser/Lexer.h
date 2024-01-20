@@ -1,32 +1,22 @@
+
+#pragma once
+
 #include <string_view>
-#include <cctype>
-#include "parser/TokenKind.h"
-#include "parser/TriviaKind.h"
-
-class Token {
-public:
-	Token(TokenKind type, std::string_view text)
-		: type(type), text(text) {}
-
-	TokenKind getType() const { return type; }
-	std::string_view getText() const { return text; }
-
-private:
-	TokenKind type;
-	std::string_view text;
-};
+#include "Token.h"
 
 class Lexer {
 public:
-	Lexer(std::string_view source);
+	Lexer(std::string_view text);
 
-	Token lex();
+	Token lexToken();
 
 private:
-	Token lexNumber();
+	std::string_view text;
+	size_t pos;
+	char currentChar;
 
-	Token lexTrivia();
-
-	std::string_view source;
-	size_t index;
+	void error();
+	void advance();
+	void skipWhitespace();
+	std::string_view integer();
 };
