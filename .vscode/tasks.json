@@ -7,12 +7,9 @@
             "command": "cmake",
             "args": [
                 "--build",
-                "build" // 确保这里的路径与你的构建目录相匹配
+                "build"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "problemMatcher": [
                 "$msCompile"
             ]

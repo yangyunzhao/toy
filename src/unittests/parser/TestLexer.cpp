@@ -43,4 +43,23 @@ TEST_CASE("Lexer lexToken", "[Lexer]") {
 		REQUIRE(token.getKind() == TokenKind::Integer);
 		REQUIRE(token.getText() == "123");
 	}
+
+	SECTION("lexToken should lex multiple tokens") {
+        Lexer lexer("123+456*789");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::Integer);
+        REQUIRE(token.getText() == "123");
+        token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::Plus);
+        REQUIRE(token.getText() == "+");
+        token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::Integer);
+        REQUIRE(token.getText() == "456");
+        token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::Multiply);
+        REQUIRE(token.getText() == "*");
+        token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::Integer);
+        REQUIRE(token.getText() == "789");
+    }
 }

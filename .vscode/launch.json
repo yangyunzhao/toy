@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/unittests.exe", // 替换为你的可执行文件名称
+            "args": [], // 如果需要，添加任何运行参数
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "preLaunchTask": "CMake Build", // 如果需要，添加你的构建任务
+            "internalConsoleOptions": "openOnSessionStart"
+        }
+    ]
+}
+
