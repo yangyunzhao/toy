@@ -1,0 +1,6 @@
+Integer
+Plus
+Minus
+Multiply
+Divide
+EndOfFile
