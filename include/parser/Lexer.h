@@ -1,26 +1,18 @@
 #include <string_view>
 #include <cctype>
-
-enum class TokenType {
-	Integer,
-	Plus,
-	Minus,
-	Multiply,
-	Divide,
-	EndOfFile,
-	Trivia
-};
+#include "parser/TokenKind.h"
+#include "parser/TriviaKind.h"
 
 class Token {
 public:
-	Token(TokenType type, std::string_view text)
+	Token(TokenKind type, std::string_view text)
 		: type(type), text(text) {}
 
-	TokenType getType() const { return type; }
+	TokenKind getType() const { return type; }
 	std::string_view getText() const { return text; }
 
 private:
-	TokenType type;
+	TokenKind type;
 	std::string_view text;
 };
 

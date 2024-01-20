@@ -1,0 +1,21 @@
+#include "parser/TokenKind.h"
+
+std::ostream& operator<<(std::ostream& os, TokenKind kind) {
+    os << toString(kind);
+    return os;
+}
+
+std::string_view toString(TokenKind kind) {
+    switch (kind) {
+{% for kind in kinds %}
+        case TokenKind::{{ kind }}: return "{{ kind }}";
+{% endfor %}
+        default: return "";
+    }
+}
+
+decltype(TokenKind_traits::values) TokenKind_traits::values = {
+{% for kind in kinds %}
+    TokenKind::{{ kind }},
+{% endfor %}
+};

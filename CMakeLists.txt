@@ -16,21 +16,15 @@ endif()
 include_directories(include)
 
 # 执行 Python 脚本并移动生成的文件
-add_custom_command(
-  OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/include/parser/TokenKind.h ${CMAKE_CURRENT_SOURCE_DIR}/include/parser/TriviaKind.h
+execute_process(
   COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/scripts/syntax_gen.py
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/TokenKind.h ${CMAKE_CURRENT_SOURCE_DIR}/include/parser/TokenKind.h
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/TriviaKind.h ${CMAKE_CURRENT_SOURCE_DIR}/include/parser/TriviaKind.h
-  COMMENT "Generating TokenKind.h and TriviaKind.h"
-  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/scripts
 )
-add_custom_target(run_python_script ALL DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/include/parser/TokenKind.h ${CMAKE_CURRENT_SOURCE_DIR}/include/parser/TriviaKind.h)
 
 # 添加静态库
 file(GLOB PARSER_SRC "src/parser/*.cpp")
 file(GLOB PARSER_HDR "include/parser/*.h")
 add_library(parser STATIC ${PARSER_SRC} ${PARSER_HDR})
-add_dependencies(parser run_python_script)
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${PARSER_SRC} ${PARSER_HDR})
 
 # 添加主程序

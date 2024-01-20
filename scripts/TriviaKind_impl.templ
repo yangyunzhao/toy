@@ -1,0 +1,21 @@
+#include "parser/TriviaKind.h"
+
+std::ostream& operator<<(std::ostream& os, TriviaKind kind) {
+    os << toString(kind);
+    return os;
+}
+
+std::string_view toString(TriviaKind kind) {
+    switch (kind) {
+{% for kind in kinds %}
+        case TriviaKind::{{ kind }}: return "{{ kind }}";
+{% endfor %}
+        default: return "";
+    }
+}
+
+decltype(TriviaKind_traits::values) TriviaKind_traits::values = {
+{% for kind in kinds %}
+    TriviaKind::{{ kind }},
+{% endfor %}
+};

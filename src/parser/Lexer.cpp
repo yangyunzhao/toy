@@ -2,28 +2,12 @@
 #include <cctype>
 #include "parser/lexer.h"
 
-enum class TokenType {
-	Integer,
-	Plus,
-	Minus,
-	Multiply,
-	Divide,
-	EndOfFile,
-	Trivia
-};
+Token::Token(TokenKind type, std::string_view text)
+	: type(type), text(text) {
+}
 
-class Token {
-public:
-	Token(TokenType type, std::string_view text)
-		: type(type), text(text) {}
-
-	TokenType getType() const { return type; }
-	std::string_view getText() const { return text; }
-
-private:
-	TokenType type;
-	std::string_view text;
-};
+TokenKind Token::getType() const { return type; }
+std::string_view Token::getText() const { return text; }
 
 class Lexer {
 public:
@@ -42,17 +26,17 @@ public:
 			else {
 				switch (c) {
 				case '+':
-					return Token(TokenType::Plus, "+");
+					return Token(TokenKind::Plus, "+");
 				case '-':
-					return Token(TokenType::Minus, "-");
+					return Token(TokenKind::Minus, "-");
 				case '*':
-					return Token(TokenType::Multiply, "*");
+					return Token(TokenKind::Multiply, "*");
 				case '/':
-					return Token(TokenType::Divide, "/");
+					return Token(TokenKind::Divide, "/");
 				}
 			}
 		}
-		return Token(TokenType::EndOfFile, "");
+		return Token(TokenKind::EndOfFile, "");
 	}
 
 private:
@@ -61,7 +45,7 @@ private:
 		while (index < source.size() && std::isdigit(source[index])) {
 			index++;
 		}
-		return Token(TokenType::Integer, source.substr(start, index - start));
+		return Token(TokenKind::Integer, source.substr(start, index - start));
 	}
 
 	Token lexTrivia() {
@@ -69,7 +53,7 @@ private:
 		while (index < source.size() && std::isspace(source[index])) {
 			index++;
 		}
-		return Token(TokenType::Trivia, source.substr(start, index - start));
+		return Token(TokenKind::Trivia, source.substr(start, index - start));
 	}
 
 	std::string_view source;
