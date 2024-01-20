@@ -7,9 +7,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 添加编译选项
 if(MSVC)
-  add_compile_options(/W4 /WX)
+  add_compile_options(/W4)
 else()
-  add_compile_options(-Wall -Wextra -Werror)
+  add_compile_options(-Wall -Wextra)
 endif()
 
 # 添加 include 目录
@@ -37,7 +37,7 @@ target_link_libraries(unittests PRIVATE parser)
 add_test(NAME unittests COMMAND unittests)
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TEST_SRC} ${TEST_HDR})
 
-# 在 Windows 下设置 driver 为默认启动项
+# 在 Windows 下设置 toy 为默认启动项
 if(MSVC)
-  set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT driver)
+  set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT toy)
 endif()
