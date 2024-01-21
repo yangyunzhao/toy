@@ -5,15 +5,19 @@ std::ostream& operator<<(std::ostream& os, TriviaKind kind) {
     return os;
 }
 
+// clang-format off
 std::string_view toString(TriviaKind kind) {
     switch (kind) {
         case TriviaKind::Whitespace: return "Whitespace";
-        case TriviaKind::Comment: return "Comment";
+        case TriviaKind::BlockComment: return "BlockComment";
+        case TriviaKind::LineComment: return "LineComment";
         default: return "";
     }
 }
+// clang-format on
 
 decltype(TriviaKind_traits::values) TriviaKind_traits::values = {
     TriviaKind::Whitespace,
-    TriviaKind::Comment,
+    TriviaKind::BlockComment,
+    TriviaKind::LineComment,
 };

@@ -5,6 +5,7 @@ std::ostream& operator<<(std::ostream& os, TokenKind kind) {
     return os;
 }
 
+// clang-format off
 std::string_view toString(TokenKind kind) {
     switch (kind) {
         case TokenKind::Integer: return "Integer";
@@ -18,6 +19,7 @@ std::string_view toString(TokenKind kind) {
         default: return "";
     }
 }
+// clang-format on
 
 decltype(TokenKind_traits::values) TokenKind_traits::values = {
     TokenKind::Integer,
