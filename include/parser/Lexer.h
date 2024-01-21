@@ -25,7 +25,7 @@ private:
     char peek(int offset = 0) const; // 新增peek方法
     std::string_view integer();
 
-    void scanBlockComment(std::vector<Trivia> &trivia);
-    void scanLineComment(std::vector<Trivia> &trivia);
-    void skipWhitespace(std::vector<Trivia> &trivia);
+    void scanBlockComment(std::vector<Trivia>& trivia);
+    void scanLineComment(std::vector<Trivia>& trivia);
+    void skipWhitespace(std::vector<Trivia>& trivia);
 };
