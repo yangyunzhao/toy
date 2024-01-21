@@ -12,7 +12,8 @@ std::string_view Trivia::getText() const {
     return text;
 }
 
-Token::Token(TokenKind kind, std::string_view text) : kind(kind), text(text) {
+Token::Token(TokenKind kind, std::string_view text)
+    : kind(kind), text(text) {
 }
 
 TokenKind Token::getKind() const {

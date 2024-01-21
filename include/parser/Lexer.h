@@ -5,7 +5,11 @@
 #include <vector>
 
 // 新增状态枚举
-enum class LexerState { Normal, InBlockComment, InLineComment };
+enum class LexerState {
+    Normal,
+    InBlockComment,
+    InLineComment
+};
 
 class Lexer {
 public:
