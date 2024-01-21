@@ -11,7 +11,7 @@
 /// @brief TriviaKind枚举定义了三种类型的Trivia
 enum class TriviaKind {
 {% for kind, comment in kinds %}
-    {{ kind }},        ///< {{ comment }}
+    {{ kind }}{{ ' ' * (max_length - kind|length) }},        ///< {{ comment }}
 {% endfor %}
 };
 

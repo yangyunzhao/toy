@@ -13,7 +13,7 @@
  */
 enum class TokenKind {
 {% for kind, comment in kinds %}
-    {{ kind }},        ///< {{ comment }}
+    {{ kind }}{{ ' ' * (max_length - kind|length) }},        ///< {{ comment }}
 {% endfor %}
 };
 

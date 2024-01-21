@@ -10,9 +10,9 @@
 
 /// @brief TriviaKind枚举定义了三种类型的Trivia
 enum class TriviaKind {
-    Whitespace,        ///< 空白
+    Whitespace  ,        ///< 空白
     BlockComment,        ///< 块注释
-    LineComment,        ///< 行注释
+    LineComment ,        ///< 行注释
 };
 
 /**

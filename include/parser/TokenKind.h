@@ -12,14 +12,14 @@
  * @brief 表示词法单元的种类的枚举类
  */
 enum class TokenKind {
-    Integer,        ///< 整数
-    Plus,        ///< 加号
-    Minus,        ///< 减号
-    Multiply,        ///< 乘号
-    Divide,        ///< 除号
-    OpenParen,        ///< 左括号
-    CloseParen,        ///< 右括号
-    EndOfFile,        ///< 文件结束标记
+    Integer     ,        ///< 整数
+    Plus        ,        ///< 加号
+    Minus       ,        ///< 减号
+    Multiply    ,        ///< 乘号
+    Divide      ,        ///< 除号
+    OpenParen   ,        ///< 左括号
+    CloseParen  ,        ///< 右括号
+    EndOfFile   ,        ///< 文件结束标记
 };
 
 /**
