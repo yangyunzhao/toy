@@ -14,9 +14,9 @@
  * @brief 状态枚举
  */
 enum class LexerState {
-    Normal, /**< 正常状态 */
+    Normal,         /**< 正常状态 */
     InBlockComment, /**< 处于块注释状态 */
-    InLineComment /**< 处于行注释状态 */
+    InLineComment   /**< 处于行注释状态 */
 };
 
 /**
@@ -44,9 +44,9 @@ public:
 
 private:
     std::string_view text; /**< 要解析的文本 */
-    size_t pos; /**< 当前解析位置 */
-    char currentChar; /**< 当前字符 */
-    LexerState state; /**< 当前解析状态 */
+    size_t pos;            /**< 当前解析位置 */
+    char currentChar;      /**< 当前字符 */
+    LexerState state;      /**< 当前解析状态 */
 
     /**
      * @brief 报告解析错误

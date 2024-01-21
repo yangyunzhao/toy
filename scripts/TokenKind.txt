@@ -1,8 +1,8 @@
-Integer
-Plus
-Minus
-Multiply
-Divide
-OpenParen
-CloseParen
-EndOfFile
+Integer 整数
+Plus 加号
+Minus 减号
+Multiply 乘号
+Divide 除号
+OpenParen 左括号
+CloseParen 右括号
+EndOfFile 文件结束标记

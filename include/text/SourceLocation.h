@@ -34,11 +34,11 @@ struct BufferID {
      */
     constexpr BufferID(uint32_t value, std::string_view name)
         : id(value)
-        // clang-format off
+    // clang-format off
 #ifdef DEBUG
         , name(name)
 #endif
-        // clang-format on
+    // clang-format on
     {
         (void)name;
     }

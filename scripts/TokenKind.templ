@@ -1,25 +1,39 @@
+/**
+ * @file TokenKind.h
+ * @brief 包含了TokenKind枚举类的头文件。
+ * @author yangyunzhao@gmail.com
+ */
+
 #pragma once
 #include <array>
 #include <ostream>
 
+/**
+ * @brief 表示词法单元的种类的枚举类
+ */
 enum class TokenKind {
-{% for kind in kinds %}
-    {{ kind }},
+{% for kind, comment in kinds %}
+    {{ kind }},        ///< {{ comment }}
 {% endfor %}
 };
 
 /**
- *  这是一个重载的输出流运算符，它允许我们直接将TokenKind枚举值输出到std::ostream对象，如std::cout
+ * @brief 重载的输出流运算符，用于将TokenKind枚举值输出到std::ostream对象
+ * @param os 输出流对象
+ * @param kind TokenKind枚举值
+ * @return 输出流对象
  */
 std::ostream& operator<<(std::ostream& os, TokenKind kind);
 
 /**
- *  这个函数将TokenKind枚举值转换为字符串表示，这在打印调试信息或错误消息时非常有用
+ * @brief 将TokenKind枚举值转换为字符串表示
+ * @param kind TokenKind枚举值
+ * @return 字符串表示
  */
 std::string_view toString(TokenKind kind);
 
 /**
- *  这个类包含一个静态数组，数组的元素是所有的TokenKind枚举值。这在需要遍历所有TokenKind值的情况下非常有用
+ * @brief 包含所有TokenKind枚举值的静态数组
  */
 class TokenKind_traits {
 public: 

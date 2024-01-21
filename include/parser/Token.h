@@ -1,6 +1,6 @@
 /**
  * @file Token.h
- * @brief 定义了 Trivia 类
+ * @brief 定义了 Trivia 和Token 类，词法分析产物
  * @author yangyunzhao@gmail.com
  */
 
@@ -35,18 +35,35 @@ public:
     std::string_view getText() const;
 
 private:
-    TriviaKind kind; ///< 附加信息的类型
+    TriviaKind kind;       ///< 附加信息的类型
     std::string_view text; ///< 附加信息的文本内容
 };
 
+/**
+ * @brief 表示解析器中的一个标记。
+ */
 class Token {
 public:
+    /**
+     * @brief 使用指定的类型和文本构造一个 Token 对象。
+     * @param kind 标记的类型。
+     * @param text 标记的文本。
+     */
     Token(TokenKind kind, std::string_view text);
 
+    /**
+     * @brief 获取标记的类型。
+     * @return 标记的类型。
+     */
     TokenKind getKind() const;
+
+    /**
+     * @brief 获取标记的文本。
+     * @return 标记的文本。
+     */
     std::string_view getText() const;
 
 private:
-    TokenKind kind;
-    std::string_view text;
+    TokenKind kind;        /**< 标记的类型。 */
+    std::string_view text; /**< 标记的文本。 */
 };

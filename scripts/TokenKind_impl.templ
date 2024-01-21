@@ -8,7 +8,7 @@ std::ostream& operator<<(std::ostream& os, TokenKind kind) {
 // clang-format off
 std::string_view toString(TokenKind kind) {
     switch (kind) {
-{% for kind in kinds %}
+{% for kind, comment in kinds %}
         case TokenKind::{{ kind }}: return "{{ kind }}";
 {% endfor %}
         default: return "";
@@ -17,7 +17,7 @@ std::string_view toString(TokenKind kind) {
 // clang-format on
 
 decltype(TokenKind_traits::values) TokenKind_traits::values = {
-{% for kind in kinds %}
+{% for kind, comment in kinds %}
     TokenKind::{{ kind }},
 {% endfor %}
 };

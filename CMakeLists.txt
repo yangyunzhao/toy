@@ -37,12 +37,6 @@ foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 endforeach()
 
-# 执行 Python 脚本并移动生成的文件
-execute_process(
-  COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/scripts/syntax_gen.py
-  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/scripts
-)
-
 # 添加静态库
 file(GLOB PARSER_SRC "src/parser/*.cpp")
 file(GLOB PARSER_HDR "include/parser/*.h")
@@ -108,3 +102,9 @@ if(DOXYGEN_FOUND)
 else(DOXYGEN_FOUND)
     message("Doxygen need to be installed to generate the doxygen documentation")
 endif(DOXYGEN_FOUND)
+
+# 执行 Python 脚本并移动生成的文件
+execute_process(
+  COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/scripts/syntax_gen.py
+  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/scripts
+)

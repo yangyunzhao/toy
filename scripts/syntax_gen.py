@@ -2,8 +2,8 @@ from jinja2 import Environment, FileSystemLoader
 import os
 
 def generate_enum(name, filename):
-    with open(filename, 'r') as f:
-        kinds = [line.strip() for line in f]
+    with open(filename, 'r', encoding='utf8') as f:
+        kinds = [line.strip().split() for line in f]
 
     env = Environment(loader=FileSystemLoader('./'), trim_blocks=True, lstrip_blocks=True)
     template = env.get_template(name + '.templ')

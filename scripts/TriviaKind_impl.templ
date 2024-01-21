@@ -8,7 +8,7 @@ std::ostream& operator<<(std::ostream& os, TriviaKind kind) {
 // clang-format off
 std::string_view toString(TriviaKind kind) {
     switch (kind) {
-{% for kind in kinds %}
+{% for kind, comment in kinds %}
         case TriviaKind::{{ kind }}: return "{{ kind }}";
 {% endfor %}
         default: return "";
@@ -17,7 +17,7 @@ std::string_view toString(TriviaKind kind) {
 // clang-format on
 
 decltype(TriviaKind_traits::values) TriviaKind_traits::values = {
-{% for kind in kinds %}
+{% for kind, comment in kinds %}
     TriviaKind::{{ kind }},
 {% endfor %}
 };
