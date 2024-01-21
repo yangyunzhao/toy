@@ -4,7 +4,8 @@
 
 enum class TriviaKind {
     Whitespace,
-    Comment,
+    BlockComment,
+    LineComment,
 };
 
 /**
@@ -22,5 +23,5 @@ std::string_view toString(TriviaKind kind);
  */
 class TriviaKind_traits {
 public: 
-    static const std::array<TriviaKind, 2> values;
+    static const std::array<TriviaKind, 3> values;
 };

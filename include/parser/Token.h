@@ -1,28 +1,28 @@
 #pragma once
-#include <string_view>
 #include "parser/TokenKind.h"
 #include "parser/TriviaKind.h"
+#include <string_view>
 
 class Trivia {
 public:
-	Trivia(TriviaKind kind, std::string_view text);
+    Trivia(TriviaKind kind, std::string_view text);
 
-	TriviaKind getKind() const;
-	std::string_view getText() const;
+    TriviaKind getKind() const;
+    std::string_view getText() const;
 
 private:
-	TriviaKind kind;
-	std::string_view text;
+    TriviaKind kind;
+    std::string_view text;
 };
 
 class Token {
 public:
-	Token(TokenKind kind, std::string_view text);
+    Token(TokenKind kind, std::string_view text);
 
-	TokenKind getKind() const;
-	std::string_view getText() const;
+    TokenKind getKind() const;
+    std::string_view getText() const;
 
 private:
-	TokenKind kind;
-	std::string_view text;
+    TokenKind kind;
+    std::string_view text;
 };
