@@ -25,6 +25,7 @@ private:
     LexerState state; // 当前解析状态
 
     void error();
+    void backTracking();
     void advance(int offset = 1);
     char peek(int offset = 0) const; // 新增peek方法
     std::string_view integer();

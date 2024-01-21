@@ -181,3 +181,9 @@ char Lexer::peek(int offset) const {
     }
     return text[peekPos];
 }
+void Lexer::backTracking() {
+    if (pos > 0) {
+        pos--;
+        currentChar = text[pos];
+    }
+}

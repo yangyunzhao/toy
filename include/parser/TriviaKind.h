@@ -22,6 +22,6 @@ std::string_view toString(TriviaKind kind);
  *  这个类包含一个静态数组，数组的元素是所有的TriviaKind枚举值。这在需要遍历所有TriviaKind值的情况下非常有用
  */
 class TriviaKind_traits {
-public:
+public: 
     static const std::array<TriviaKind, 3> values;
 };
