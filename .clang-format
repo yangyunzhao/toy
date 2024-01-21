@@ -104,8 +104,8 @@ BreakInheritanceList: BeforeColon
 BreakBeforeTernaryOperators: true
 # 三元运算符前换行。
 
-BreakConstructorInitializersBeforeComma: false
-# 构造函数初始化列表中逗号前不换行。
+BreakConstructorInitializersBeforeComma: true
+# 构造函数初始化列表中逗号前换行。
 
 BreakConstructorInitializers: BeforeColon
 # 构造函数初始化列表在冒号前换行。
@@ -125,8 +125,8 @@ CommentPragmas:  '^ IWYU pragma:'
 CompactNamespaces: false
 # 不压缩命名空间。
 
-ConstructorInitializerAllOnOneLineOrOnePerLine: false
-# 构造函数初始化列表不是全部在一行就是每个一行。
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+# 这个选项会尽量保持构造函数初始化列表的原有换行方式，只有在一行放不下所有初始化器时，才会将每个初始化器放在单独的一行。
 
 ConstructorInitializerIndentWidth: 4
 # 构造函数初始化列表的缩进宽度为4个空格。

@@ -3,8 +3,7 @@
 #include <stdexcept>
 
 Lexer::Lexer(std::string_view text)
-    : text(text), pos(0), currentChar(text.empty() ? '\0' : text[0]),
-      state(LexerState::Normal) {
+    : text(text), pos(0), currentChar(text.empty() ? '\0' : text[0]), state(LexerState::Normal) {
 }
 
 void Lexer::error() {
