@@ -7,15 +7,20 @@ enum class TriviaKind {
     Comment,
 };
 
+/**
+ *  è¿™æ˜¯ä¸€ä¸ªé‡è½½çš„è¾“å‡ºæµè¿ç®—ç¬¦ï¼Œå®ƒå…è®¸æˆ‘ä»¬ç›´æ¥å°†TriviaKindæšä¸¾å€¼è¾“å‡ºåˆ°std::ostreamå¯¹è±¡ï¼Œå¦‚std::cout
+ */
 std::ostream& operator<<(std::ostream& os, TriviaKind kind);
-std::string_view toString(TriviaKind kind);
-
-class TriviaKind_traits {
-public: static const std::array<TriviaKind, 2> values;
-};
 
 /**
- *	std::ostream& operator<<(std::ostream& os, TokenKind kind); ÕâÊÇÒ»¸öÖØÔØµÄÊä³öÁ÷ÔËËã·û£¬ËüÔÊĞíÎÒÃÇÖ±½Ó½«TokenKindÃ¶¾ÙÖµÊä³öµ½std::ostream¶ÔÏó£¬Èçstd::cout¡£
- *	std::string_view toString(TokenKind kind); Õâ¸öº¯Êı½«TokenKindÃ¶¾ÙÖµ×ª»»Îª×Ö·û´®±íÊ¾£¬ÕâÔÚ´òÓ¡µ÷ÊÔĞÅÏ¢»ò´íÎóÏûÏ¢Ê±·Ç³£ÓĞÓÃ¡£
- *	class TokenKind_traits Õâ¸öÀà°üº¬Ò»¸ö¾²Ì¬Êı×é£¬Êı×éµÄÔªËØÊÇËùÓĞµÄTokenKindÃ¶¾ÙÖµ¡£ÕâÔÚĞèÒª±éÀúËùÓĞTokenKindÖµµÄÇé¿öÏÂ·Ç³£ÓĞÓÃ¡£
+ *  è¿™ä¸ªå‡½æ•°å°†TriviaKindæšä¸¾å€¼è½¬æ¢ä¸ºå­—ç¬¦ä¸²è¡¨ç¤ºï¼Œè¿™åœ¨æ‰“å°è°ƒè¯•ä¿¡æ¯æˆ–é”™è¯¯æ¶ˆæ¯æ—¶éå¸¸æœ‰ç”¨
  */
+std::string_view toString(TriviaKind kind);
+
+/**
+ *  è¿™ä¸ªç±»åŒ…å«ä¸€ä¸ªé™æ€æ•°ç»„ï¼Œæ•°ç»„çš„å…ƒç´ æ˜¯æ‰€æœ‰çš„TriviaKindæšä¸¾å€¼ã€‚è¿™åœ¨éœ€è¦éå†æ‰€æœ‰TriviaKindå€¼çš„æƒ…å†µä¸‹éå¸¸æœ‰ç”¨
+ */
+class TriviaKind_traits {
+public: 
+    static const std::array<TriviaKind, 2> values;
+};

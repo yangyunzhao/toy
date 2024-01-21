@@ -72,6 +72,18 @@ Token Lexer::lexToken() {
 			return Token{ TokenKind::Divide, "/" };
 		}
 
+		if (currentChar == '(') {
+			spdlog::info("Left Parenthesis sign encountered");
+            advance();
+            return Token{TokenKind::OpenParen, "("};
+        }
+
+        if (currentChar == ')') {
+			spdlog::info("Right Parenthesis sign encountered");
+            advance();
+            return Token{TokenKind::CloseParen, ")"};
+        }
+
 		spdlog::error("Unexpected character encountered");
 		error();
 	}

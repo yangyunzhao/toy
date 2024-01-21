@@ -11,13 +11,13 @@ def generate_enum(name, filename):
     parent_dir = os.path.dirname(script_dir)
     output_dir = os.path.join(parent_dir, 'include', 'parser')
     output_path = os.path.join(output_dir, name + '.h')
-    with open(output_path, 'w') as f:
+    with open(output_path, 'w', encoding='utf8') as f:
         f.write(template.render(kinds=kinds))
         
     template = env.get_template(name + '_impl.templ')
     output_dir = os.path.join(parent_dir, 'src', 'parser')
     output_path = os.path.join(output_dir, name + '.cpp')
-    with open(output_path, 'w') as f:
+    with open(output_path, 'w', encoding='utf8') as f:
         f.write(template.render(kinds=kinds))
 
 generate_enum('TokenKind', os.path.join(os.path.dirname(__file__), 'TokenKind.txt'))

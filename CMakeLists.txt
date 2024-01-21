@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 添加编译选项
 if(MSVC)
-  add_compile_options(/W4)
+  add_compile_options(/W3 /MP /utf-8)
 else()
   add_compile_options(-Wall -Wextra)
 endif()
@@ -23,6 +23,7 @@ link_directories(${CMAKE_CURRENT_SOURCE_DIR}/third_party/spdlog-1.13.0/lib)
 # 创建 bin 和 log 目录（如果不存在）
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/log)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build)
 
 # 在添加目标之前，为所有配置类型设置统一的输出目录
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)

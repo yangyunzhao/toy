@@ -3,4 +3,6 @@ Plus
 Minus
 Multiply
 Divide
+OpenParen
+CloseParen
 EndOfFile

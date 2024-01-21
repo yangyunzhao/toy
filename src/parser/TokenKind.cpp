@@ -12,6 +12,8 @@ std::string_view toString(TokenKind kind) {
         case TokenKind::Minus: return "Minus";
         case TokenKind::Multiply: return "Multiply";
         case TokenKind::Divide: return "Divide";
+        case TokenKind::OpenParen: return "OpenParen";
+        case TokenKind::CloseParen: return "CloseParen";
         case TokenKind::EndOfFile: return "EndOfFile";
         default: return "";
     }
@@ -23,5 +25,7 @@ decltype(TokenKind_traits::values) TokenKind_traits::values = {
     TokenKind::Minus,
     TokenKind::Multiply,
     TokenKind::Divide,
+    TokenKind::OpenParen,
+    TokenKind::CloseParen,
     TokenKind::EndOfFile,
 };
