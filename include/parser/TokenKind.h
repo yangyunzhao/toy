@@ -27,6 +27,6 @@ std::string_view toString(TokenKind kind);
  *  这个类包含一个静态数组，数组的元素是所有的TokenKind枚举值。这在需要遍历所有TokenKind值的情况下非常有用
  */
 class TokenKind_traits {
-public: 
+public:
     static const std::array<TokenKind, 8> values;
 };

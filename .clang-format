@@ -279,9 +279,6 @@ SpaceBeforeInheritanceColon: true
 SpaceBeforeParens: ControlStatements
 # 控制语句的括号前加空格，例如if (condition) {}。
 
-SpacesAroundUnaryOperator: true
-# 选项控制了在一元运算符前后是否添加空格。你可以将其设置为true或false。true表示在一元运算符前后添加空格，false表示不添加。
-
 SpaceBeforeRangeBasedForLoopColon: true
 # 基于范围的for循环中冒号前加空格，例如for (auto val : values) {}。
 
