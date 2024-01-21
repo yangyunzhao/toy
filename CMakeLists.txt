@@ -68,3 +68,14 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TEST_SRC} ${TEST_HDR})
 if(MSVC)
   set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT toy)
 endif()
+
+# 添加 clang-format 自定义目标
+file(GLOB_RECURSE ALL_SRC
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/**/*.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.cpp"
+)
+execute_process(
+  COMMAND clang-format
+  -i
+  ${ALL_SRC}
+)
