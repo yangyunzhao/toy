@@ -1,7 +1,7 @@
 #include "catch2/catch.hpp"
 #include "parser/Lexer.h"
 
-TEST_CASE("Lexer lexToken", "[Lexer]") {
+TEST_CASE("Lexer lexToken Normal", "[Lexer]") {
     SECTION("lexToken should lex integers") {
         Lexer lexer("123");
         Token token = lexer.lexToken();
@@ -138,5 +138,30 @@ TEST_CASE("Lexer lexToken", "[Lexer]") {
         Token token = lexer.lexToken();
         REQUIRE(token.getKind() == TokenKind::Integer);
         REQUIRE(token.getText() == "123");
+    }
+}
+
+TEST_CASE("Lexer lexToken Arithmetic", "[Lexer][Arithmetic]") {
+    SECTION("lexToken should lex divide sign", "[Divide]") {
+        Lexer lexer("/");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::Divide);
+        REQUIRE(token.getText() == "/");
+    }
+}
+
+TEST_CASE("Lexer lexToken Brackets", "[Lexer][Brackets]") {
+    SECTION("lexToken should lex open bracket", "[OpenBracket]") {
+        Lexer lexer("(");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::OpenParen);
+        REQUIRE(token.getText() == "(");
+    }
+
+    SECTION("lexToken should lex close bracket", "[CloseBracket]") {
+        Lexer lexer(")");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::CloseParen);
+        REQUIRE(token.getText() == ")");
     }
 }

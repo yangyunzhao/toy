@@ -68,8 +68,10 @@ enable_testing()
 file(GLOB_RECURSE TEST_SRC "src/unittests/*.cpp")
 file(GLOB_RECURSE TEST_HDR "include/unittests/*.h")
 add_executable(unittests ${TEST_SRC} ${TEST_HDR})
-target_link_libraries(unittests PRIVATE parser core spdlogd)
-add_test(NAME unittests COMMAND unittests)
+target_link_libraries(unittests PRIVATE parser core spdlogd) 
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Catch.cmake)
+catch_discover_tests(unittests)
+
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TEST_SRC} ${TEST_HDR})
 
 # 在 Windows 下设置 toy 为默认启动项
