@@ -5,6 +5,11 @@ project(toy LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# 设置默认构建类型为 Debug
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Debug FORCE)
+endif()
+
 # 添加编译选项
 if(MSVC)
   add_compile_options(/W3 /MP /utf-8)
