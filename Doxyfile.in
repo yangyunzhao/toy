@@ -19,8 +19,10 @@ GENERATE_DOCBOOK       = YES # 是否生成DocBook文档
 GENERATE_AUTOGEN_DEF   = NO # 是否生成autogen定义文件
 
 # 目录和文件
-INPUT                  = ../include ../src  # 输入文件或目录
-FILE_PATTERNS          = *.cpp *.h          # 文件模式，用于匹配输入文件
+INPUT                  = ../include ../src ../README.CN.md  # 输入文件或目录
+FILE_PATTERNS          = *.cpp *.h *.md                     # 文件模式，用于匹配输入文件
+USE_MDFILE_AS_MAINPAGE = ../README.CN.md
+MARKDOWN_SUPPORT       = YES
 
 RECURSIVE              = YES # 是否递归搜索输入目录
 EXCLUDE_PATTERNS       = */unittests/* # 排除模式，用于排除某些文件或目录
@@ -46,15 +48,12 @@ DOT_PATH               = "C:/Program Files/Graphviz/bin" # dot工具的路径
 DOTFILE_DIRS           =  # 包含dot文件的目录
 DOT_GRAPH_MAX_NODES    = 50 # dot图中的最大节点数
 MAX_DOT_GRAPH_DEPTH    = 5 # dot图的最大深度
-DOT_TRANSPARENT        = YES # dot图是否透明
 
 # 其他设置
 ALPHABETICAL_INDEX     = YES # 是否生成字母索引
-COLS_IN_ALPHA_INDEX    = 5 # 字母索引中的列数
 IGNORE_PREFIX          =  # 忽略的前缀
 
 # HTML输出设置
-HTML_TIMESTAMP         = YES # 是否在HTML页脚添加时间戳
 HTML_DYNAMIC_MENUS     = YES # 是否在HTML头部添加动态菜单
 HTML_OUTPUT            = ./html # HTML输出目录
 

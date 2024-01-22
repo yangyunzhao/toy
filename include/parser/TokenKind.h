@@ -42,5 +42,5 @@ std::string_view toString(TokenKind kind);
  */
 class TokenKind_traits {
 public: 
-    static const std::array<TokenKind, 8> values;
+    static const std::array<TokenKind, 8> values;  ///< 包含所有TokenKind枚举值的静态数组
 };

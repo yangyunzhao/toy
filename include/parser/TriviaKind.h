@@ -40,5 +40,5 @@ std::string_view toString(TriviaKind kind);
  */
 class TriviaKind_traits {
 public: 
-    static const std::array<TriviaKind, 3> values;
+    static const std::array<TriviaKind, 3> values; ///< 包含所有TriviaKind枚举值的静态数组
 };
