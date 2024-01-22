@@ -82,10 +82,11 @@ file(GLOB_RECURSE ALL_SRC
   "${CMAKE_CURRENT_SOURCE_DIR}/include/**/*.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.cpp"
 )
-execute_process(
-  COMMAND clang-format
-  -i
-  ${ALL_SRC}
+add_custom_target(
+    format
+    COMMAND clang-format -i ${ALL_SRC}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    COMMENT "Running clang-format on all source files"
 )
 
 # 检查是否安装了Doxygen
@@ -100,16 +101,21 @@ if(DOXYGEN_FOUND)
     # 请求CMake配置Doxyfile
     configure_file(${DOXYGEN_IN} ${DOXYGEN_FILE} @ONLY)
 
-    # 添加一个目标来生成API文档
-    execute_process(
+    # 添加一个自定义目标来生成API文档
+    add_custom_target(
+        doxygen
         COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_FILE}
-        WORKING_DIRECTORY ${DOXYGEN_OUT})
-else(DOXYGEN_FOUND)
-    message("Doxygen need to be installed to generate the doxygen documentation")
-endif(DOXYGEN_FOUND)
+        WORKING_DIRECTORY ${DOXYGEN_OUT}
+        COMMENT "Generating API documentation with Doxygen"
+    )
+else()
+    message("Doxygen needs to be installed to generate the doxygen documentation")
+endif()
 
-# 执行 Python 脚本并移动生成的文件
-execute_process(
-  COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/scripts/syntax_gen.py
-  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/scripts
+# 添加一个自定义目标来执行Python脚本
+add_custom_target(
+    generate_scripts
+    COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/scripts/syntax_gen.py
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/scripts
+    COMMENT "Generating syntax files with Python script"
 )
