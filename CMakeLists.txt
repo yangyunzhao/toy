@@ -98,12 +98,10 @@ if(DOXYGEN_FOUND)
     set(DOXYGEN_OUT ${CMAKE_CURRENT_SOURCE_DIR}/doc)
     set(DOXYGEN_FILE ${DOXYGEN_OUT}/Doxyfile)
 
-    # 请求CMake配置Doxyfile
-    configure_file(${DOXYGEN_IN} ${DOXYGEN_FILE} @ONLY)
-
     # 添加一个自定义目标来生成API文档
     add_custom_target(
         doxygen
+        COMMAND ${CMAKE_COMMAND} -D DOXYGEN_IN=${DOXYGEN_IN} -D DOXYGEN_FILE=${DOXYGEN_FILE} -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/configure_doxyfile.cmake
         COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_FILE}
         WORKING_DIRECTORY ${DOXYGEN_OUT}
         COMMENT "Generating API documentation with Doxygen"

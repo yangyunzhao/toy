@@ -1,0 +1,1 @@
+configure_file(${DOXYGEN_IN} ${DOXYGEN_FILE} @ONLY)
