@@ -1,0 +1,17 @@
+# ============================================================================= 定义表达式
+# Expression
+Expression:
+  - BinaryExpression:       # 二元表达式
+      left: Expression      # 左操作数
+      operator: Operator    # 操作符
+      right: Expression     # 右操作数
+      kind: BinaryExpKind   # 表达式种类
+
+# ============================================================================= 定义类型
+# Kind
+# 定义二元表达式的种类
+BinExpKind: 
+  - AddExpression
+  - SubtractExpression
+  - MultiplyExpression
+  - DivideExpression
