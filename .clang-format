@@ -210,8 +210,8 @@ MacroBlockEnd:   ''
 MaxEmptyLinesToKeep: 1
 # 保留的最大空行数为1。
 
-NamespaceIndentation: None
-# 命名空间不缩进。
+NamespaceIndentation: All
+# 命名空间缩进。
 
 ObjCBinPackProtocolList: Auto
 # Objective-C协议列表自动打包（C++项目中不适用）。

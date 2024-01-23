@@ -1,4 +1,6 @@
 Integer 整数
+HexInteger 十六进制整数
+BinaryInteger 二进制整数
 Plus 加号
 Minus 减号
 Multiply 乘号

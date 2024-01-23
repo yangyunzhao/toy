@@ -1,5 +1,6 @@
 #include "catch2/catch.hpp"
 #include "parser/Lexer.h"
+using namespace toy;
 
 TEST_CASE("Lexer lexToken Normal", "[Lexer]") {
     SECTION("lexToken should lex integers") {

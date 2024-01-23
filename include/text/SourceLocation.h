@@ -3,16 +3,17 @@
  * @brief 包含了源代码位置相关的结构体和类的头文件。
  * @author yangyunzhao@gmail.com
  */
+#if 0
+#    pragma once
 
-#pragma once
-
-#include "util/Util.h"
-#include <compare>
-#include <concepts>
-#include <stdint.h>
-#include <string>
-#include <string_view>
-#include <vector>
+#    include "util/Util.h"
+#    include <compare>
+#    include <concepts>
+#    include <filesystem>
+#    include <stdint.h>
+#    include <string>
+#    include <string_view>
+#    include <vector>
 
 /**
  * @struct BufferID
@@ -93,9 +94,9 @@ struct BufferID {
         return BufferID(UINT32_MAX, ""sv);
     }
 
-#ifdef DEBUG
+#    ifdef DEBUG
     std::string_view name;
-#endif
+#    endif
 
 private:
     uint32_t id = 0; ///< BufferID 的值
@@ -124,10 +125,10 @@ public:
      */
     constexpr SourceLocation(BufferID buffer, uint64_t offset)
         :
-#ifdef DEBUG
+#    ifdef DEBUG
         bufferName(buffer.name)
         ,
-#endif
+#    endif
         bufferID(buffer.getId())
         , charOffset(offset) {
     }
@@ -137,11 +138,11 @@ public:
      * @return 源位置所在的缓冲区
      */
     BufferID buffer() const {
-#ifdef DEBUG
+#    ifdef DEBUG
         return BufferID(bufferID, bufferName);
-#else
+#    else
         return BufferID(bufferID, ""sv);
-#endif
+#    endif
     }
 
     /**
@@ -244,9 +245,9 @@ public:
         return charOffset <=> rhs.charOffset;
     }
 
-#ifdef DEBUG
+#    ifdef DEBUG
     std::string_view bufferName;
-#endif
+#    endif
 
     /**
      * @brief 一个保留的位置，用于表示“没有位置”。
@@ -258,6 +259,97 @@ private:
     uint64_t charOffset : 36; ///< 保存字符偏移量
 };
 
-#ifndef DEBUG
+#    ifndef DEBUG
 static_assert(sizeof(SourceLocation) == 8); ///< 在非 DEBUG 模式下，确保 SourceLocation 的大小为 8 字节
+#    endif
+
+/// Combines a pair of source locations that denote a range of source text.
+class SourceRange {
+public:
+    SourceRange() {
+    }
+    SourceRange(SourceLocation startLoc, SourceLocation endLoc)
+        : startLoc(startLoc), endLoc(endLoc) {
+    }
+
+    /// @return the start of the range.
+    SourceLocation start() const {
+        return startLoc;
+    }
+
+    /// @return the end of the range.
+    SourceLocation end() const {
+        return endLoc;
+    }
+
+    bool operator==(const SourceRange& rhs) const = default;
+
+    /// A range that is reserved to represent "no location" at all.
+    static const SourceRange NoLocation;
+
+private:
+    SourceLocation startLoc;
+    SourceLocation endLoc;
+};
+
+/// @brief A named collection of source buffers that form a library.
+///
+/// Each buffer is associated with one library. Libraries are
+/// uniqued by name, so identity for the rest of the program is
+/// by object address, not by the name string.
+struct SourceLibrary {
+    /// The name of the library.
+    std::string name;
+
+    /// Additional include directories that are used when
+    /// parsing files that are part of this library.
+    std::vector<std::filesystem::path> includeDirs;
+
+    /// The priority of this library relative to others in the
+    /// search order. Lower numbers are higher priority.
+    int priority = 0;
+
+    /// Default constructor.
+    SourceLibrary() = default;
+
+    /// Constructs a new source library object with the given name.
+    SourceLibrary(std::string&& name, int priority)
+        : name(std::move(name)), priority(priority) {
+    }
+};
+
+/// Represents a source buffer; that is, the actual text of the source
+/// code along with an identifier for the buffer which potentially
+/// encodes its include stack.
+struct SourceBuffer {
+    /// A view into the text comprising the buffer.
+    std::string_view data;
+
+    /// The library associated with the buffer.
+    const SourceLibrary* library = nullptr;
+
+    /// The ID assigned to the buffer.
+    BufferID id;
+
+    explicit operator bool() const {
+        return id.valid();
+    }
+};
+
+template <>
+struct hash<BufferID> {
+    size_t operator()(const BufferID& obj) const {
+        return obj.getId();
+    }
+};
+
+template <>
+struct hash<SourceLocation> {
+    size_t operator()(const SourceLocation& obj) const {
+        size_t seed = 0;
+        hash_combine(seed, obj.buffer());
+        hash_combine(seed, obj.offset());
+        return seed;
+    }
+};
 #endif
