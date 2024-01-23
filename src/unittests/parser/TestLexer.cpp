@@ -166,3 +166,107 @@ TEST_CASE("Lexer lexToken Brackets", "[Lexer][Brackets]") {
         REQUIRE(token.getText() == ")");
     }
 }
+
+TEST_CASE("Lexer lexToken HexInteger and BinaryInteger", "[Lexer]") {
+    SECTION("HexInteger without underscore") {
+        Lexer lexer("0x1F");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::HexInteger);
+        REQUIRE(token.getText() == "0x1F");
+    }
+
+    SECTION("BinaryInteger without underscore") {
+        Lexer lexer("0b1010");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::BinaryInteger);
+        REQUIRE(token.getText() == "0b1010");
+    }
+
+    SECTION("HexInteger with underscore") {
+        Lexer lexer("0x1_F");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::HexInteger);
+        REQUIRE(token.getText() == "0x1_F");
+    }
+
+    SECTION("BinaryInteger with underscore") {
+        Lexer lexer("0b10_10");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::BinaryInteger);
+        REQUIRE(token.getText() == "0b10_10");
+    }
+}
+
+TEST_CASE("Lexer lexToken HexInteger and BinaryInteger with underscore", "[Lexer]") {
+    SECTION("HexInteger with underscore at the start") {
+        Lexer lexer("0x_1F");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::HexInteger);
+        REQUIRE(token.getText() == "0x_1F");
+    }
+
+    SECTION("BinaryInteger with underscore at the start") {
+        Lexer lexer("0b_1010");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::BinaryInteger);
+        REQUIRE(token.getText() == "0b_1010");
+    }
+
+    SECTION("HexInteger with underscore at the end") {
+        Lexer lexer("0x1F_");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::HexInteger);
+        REQUIRE(token.getText() == "0x1F_");
+    }
+
+    SECTION("BinaryInteger with underscore at the end") {
+        Lexer lexer("0b1010_");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::BinaryInteger);
+        REQUIRE(token.getText() == "0b1010_");
+    }
+
+    SECTION("HexInteger with multiple underscores") {
+        Lexer lexer("0x1__F");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::HexInteger);
+        REQUIRE(token.getText() == "0x1__F");
+    }
+
+    SECTION("BinaryInteger with multiple underscores") {
+        Lexer lexer("0b10__10");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::BinaryInteger);
+        REQUIRE(token.getText() == "0b10__10");
+    }
+}
+
+TEST_CASE("Lexer lexToken DecimalInteger with multiple underscores", "[Lexer]") {
+    SECTION("DecimalInteger with one underscore") {
+        Lexer lexer("1_234");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::Integer);
+        REQUIRE(token.getText() == "1_234");
+    }
+
+    SECTION("DecimalInteger with multiple underscores at different positions") {
+        Lexer lexer("1_2_3_4");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::Integer);
+        REQUIRE(token.getText() == "1_2_3_4");
+    }
+
+    SECTION("DecimalInteger with multiple underscores at the end") {
+        Lexer lexer("1234__");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::Integer);
+        REQUIRE(token.getText() == "1234__");
+    }
+
+    SECTION("DecimalInteger with multiple underscores at the start") {
+        Lexer lexer("1234__5678");
+        Token token = lexer.lexToken();
+        REQUIRE(token.getKind() == TokenKind::Integer);
+        REQUIRE(token.getText() == "1234__5678");
+    }
+}

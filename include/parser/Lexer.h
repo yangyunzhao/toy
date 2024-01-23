@@ -54,9 +54,17 @@ namespace toy {
         //! @return 指定偏移量的字符
         char peek(int offset = 0) const;
 
-        //! @brief 解析整数
-        //! @return 解析得到的整数字符串
+        //! @brief 解析10进制整数
+        //! @return 解析得到的10进制整数字符串
         std::string_view integer();
+
+        //! @brief 解析16进制整数
+        //! @return 解析得到的16进制整数字符串
+        std::string_view hexInteger();
+
+        //! @brief 解析2进制整数
+        //! @return 解析得到的2进制整数字符串
+        std::string_view binaryInteger();
 
         //! @brief 扫描块注释
         //! @param trivia 存储Trivia的向量
@@ -69,5 +77,17 @@ namespace toy {
         //! @brief 跳过空白字符
         //! @param trivia 存储Trivia的向量
         void skipWhitespace(std::vector<Trivia>& trivia);
+
+        //! @brief 判断字符是否为16进制数字
+        //! @param c 要判断的字符
+        bool isHexDigit(char c);
+
+        //! @brief 判断字符是否为10进制数字
+        //! @param c 要判断的字符
+        bool isDcmDigit(char c);
+
+        //! @brief 判断字符是否为2进制数字
+        //! @param c 要判断的字符
+        bool isBinDigit(char c);
     };
 } // namespace toy

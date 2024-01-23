@@ -85,7 +85,7 @@ file(GLOB_RECURSE ALL_SRC
   "${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.cpp"
 )
 add_custom_target(
-    format
+    code_format
     COMMAND clang-format -i ${ALL_SRC}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Running clang-format on all source files"

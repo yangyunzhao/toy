@@ -19,6 +19,7 @@ namespace toy {
             case TokenKind::OpenParen: return "OpenParen";
             case TokenKind::CloseParen: return "CloseParen";
             case TokenKind::EndOfFile: return "EndOfFile";
+            case TokenKind::UnderLine: return "UnderLine";
             default: return "";
         }
     }
@@ -35,5 +36,6 @@ namespace toy {
         TokenKind::OpenParen,
         TokenKind::CloseParen,
         TokenKind::EndOfFile,
+        TokenKind::UnderLine,
     };
-} // namespace toy
+}  // namespace toy
