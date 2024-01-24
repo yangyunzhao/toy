@@ -1,17 +1,54 @@
+# ============================================================================= 定义基类
+# Abstract
+Abstract:
+  - Expression:          # 表达式基类
+
 # ============================================================================= 定义表达式
 # Expression
 Expression:
-  - BinaryExpression:       # 二元表达式
-      left: Expression      # 左操作数
-      operator: Operator    # 操作符
-      right: Expression     # 右操作数
-      kind: BinaryExpKind   # 表达式种类
+  - BinaryExpression:                   # 二元表达式
+      Children:
+        - left: Expression              # 左操作数
+        - operator: Token/ArithOperator # 算术操作符
+        - right: Expression             # 右操作数
+      Kind: BinaryExpressionKind        # 表达式种类
+  - ParenthesizedExpression:            # 括号表达式
+      Children:
+        - leftParen: Token/openParen    # 操作符
+        - inner: Expression             # 内部表达式
+        - rightParen: Token/closeParen  # 操作符
+  - NumberExpression:                   # 数字值表达式
+      Children:
+        - value: Token/Number           # 数值Token
 
-# ============================================================================= 定义类型
+# ============================================================================= 定义Kind
 # Kind
 # 定义二元表达式的种类
-BinExpKind: 
-  - AddExpression
-  - SubtractExpression
-  - MultiplyExpression
-  - DivideExpression
+Kind:
+  - BinaryExpressionKind: 
+      Types:
+        - add: AddExpression            # 加法表达式
+        - subtract: SubtractExpression  # 减法表达式
+        - multiply: MultiplyExpression  # 乘法表达式
+        - divide: DivideExpression      # 除法表达式
+
+# ============================================================================= 定义Token
+# Token
+Token:
+  - Number:                             # 数值类型
+      Types:
+        - integer: Integer              # 整数类型
+        - hexInteger: HexInteger        # 十六进制整数类型
+        - binaryInteger: BinaryInteger  # 二进制整数类型
+  - ArithOperator:                      # 操作符类型
+      Types:
+        - plus: Plus                    # 加号
+        - minus: Minus                  # 减号
+        - multiply: Multiply            # 乘号
+        - divide: Divide                # 除号
+  - Paren:                              # 括号类型
+      Types:
+        - openParen: OpenParen          # 开括号
+        - closeParen: CloseParen        # 闭括号
+  - EndOfFile: EndOfFile                # 文件结束标记
+  - UnderLine: UnderLine                # 下划线

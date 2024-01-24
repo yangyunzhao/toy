@@ -36,6 +36,29 @@ def load_yaml(file_path):
 
 def generate_syntax():
     yaml_data = load_yaml(os.path.join(os.path.dirname(__file__), 'syntax.yaml'))
-    print(yaml_data)
+    env = Environment(loader=FileSystemLoader('./'), trim_blocks=True, lstrip_blocks=True)
+    script_dir = os.path.dirname(__file__)
+    parent_dir = os.path.dirname(script_dir)
+    # =============================================================================
+    # SyntaxKind.h
+    output_dir = os.path.join(parent_dir, 'include', 'parser')
+    output_path = os.path.join(output_dir, 'SyntaxKind.h')
+    template = env.get_template('SyntaxKind.templ')
+    with open(output_path, 'w', encoding='utf8') as file:
+        file.write(template.render(data=yaml_data))
+    # =============================================================================
+    # Syntax.h
+    output_dir = os.path.join(parent_dir, 'include', 'parser')
+    output_path = os.path.join(output_dir, 'Syntax.h')
+    template = env.get_template('Syntax.templ')
+    with open(output_path, 'w', encoding='utf8') as file:
+        file.write(template.render(data=yaml_data))
+    # =============================================================================
+    # Syntax.cpp
+    output_dir = os.path.join(parent_dir, 'src', 'parser')
+    output_path = os.path.join(output_dir, 'Syntax.cpp')
+    template = env.get_template('Syntax_impl.templ')
+    with open(output_path, 'w', encoding='utf8') as file:
+        file.write(template.render(data=yaml_data))
 
 generate_syntax()

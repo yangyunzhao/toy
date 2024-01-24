@@ -1,0 +1,32 @@
+#pragma once
+
+#include <array>
+#include <ostream>
+#include <string_view>
+
+namespace toy {
+    enum class SyntaxKind {
+        Unknown,
+        {% for expression in data.Expression %}
+        {% set exprDict = expression.values()|first %}
+        {% if 'Kind' not in exprDict %}
+        {{ expression.keys()|first }},
+        {% else %}
+        {% set kindDict = data.Kind|selectattr(exprDict.Kind, 'defined')|first %}
+        {% for kind in kindDict[exprDict.Kind].Types %}
+        {{ kind.values()|first }},
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+    };
+
+    std::ostream& operator<<(std::ostream& os, SyntaxKind kind);
+    std::string_view toString(SyntaxKind kind);
+
+    class SyntaxKind_traits {
+    public:
+        static const std::array<SyntaxKind, {% set binaryKinds = data.Kind | selectattr('BinaryExpressionKind', 'defined') | first %}{% set nonBinaryCount = data.Expression | rejectattr('Kind', 'defined') | list | length %}{% set binaryCount = binaryKinds.BinaryExpressionKind.Types | length %}{{ nonBinaryCount + binaryCount }}> values;
+    };
+
+    const std::type_info* typeFromSyntaxKind(SyntaxKind kind);
+}
