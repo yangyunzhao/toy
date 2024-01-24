@@ -4,11 +4,6 @@
 
 struct GlobalSetup {
     GlobalSetup() {
-#ifdef _DEBUG
-        printf("Debug build\n");
-#else
-        printf("Release build\n");
-#endif
         spdlog::set_level(spdlog::level::warn);
     }
 
