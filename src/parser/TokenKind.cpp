@@ -9,6 +9,7 @@ namespace toy {
     // clang-format off
     std::string_view toString(TokenKind kind) {
         switch (kind) {
+            case TokenKind::Unknown: return "Unknown";
             case TokenKind::Integer: return "Integer";
             case TokenKind::HexInteger: return "HexInteger";
             case TokenKind::BinaryInteger: return "BinaryInteger";
@@ -26,6 +27,7 @@ namespace toy {
     // clang-format on
 
     decltype(TokenKind_traits::values) TokenKind_traits::values = {
+        TokenKind::Unknown,
         TokenKind::Integer,
         TokenKind::HexInteger,
         TokenKind::BinaryInteger,
@@ -38,4 +40,4 @@ namespace toy {
         TokenKind::EndOfFile,
         TokenKind::UnderLine,
     };
-}  // namespace toy
+} // namespace toy

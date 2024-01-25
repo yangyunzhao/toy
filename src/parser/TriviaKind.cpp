@@ -22,4 +22,4 @@ namespace toy {
         TriviaKind::BlockComment,
         TriviaKind::LineComment,
     };
-}  // namespace toy
+} // namespace toy
