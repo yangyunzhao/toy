@@ -9,7 +9,7 @@ Expression:
   - BinaryExpression:                   # 二元表达式
       Children:
         - left: Expression              # 左操作数
-        - operator: Token/ArithOperator # 算术操作符
+        - op: Token/ArithOperator       # 算术操作符
         - right: Expression             # 右操作数
       Kind: BinaryExpressionKind        # 表达式种类
   - ParenthesizedExpression:            # 括号表达式

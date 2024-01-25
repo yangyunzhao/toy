@@ -40,4 +40,4 @@ namespace toy {
         TokenKind::EndOfFile,
         TokenKind::UnderLine,
     };
-} // namespace toy
+}  // namespace toy

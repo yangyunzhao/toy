@@ -7,27 +7,32 @@
 
 namespace toy {
 
+    template<typename T>
+    concept not_null = 
+        !std::is_assignable_v<T&, std::nullptr_t> && 
+        requires(T t) {
+            { *t } -> std::convertible_to<typename std::pointer_traits<T>::element_type&>;
+            { t->*t } -> std::convertible_to<typename std::pointer_traits<T>::element_type*>;
+        };
+
     struct ExpressionSyntax : public SyntaxNode {
-        explicit ExpressionSyntax(SyntaxKind kind)
-            : SyntaxNode(kind) {
-        }
+        explicit ExpressionSyntax(SyntaxKind kind) : SyntaxNode(kind) {}
         explicit ExpressionSyntax(const ExpressionSyntax&) = default;
         static bool isKind(SyntaxKind kind);
     };
 
-    struct BinaryExpressionSyntax : public ExpressionSyntax {
+    struct BinaryExpression : public ExpressionSyntax {
         not_null<ExpressionSyntax*> left;
-        Token operator;
+        Token op;
         not_null<ExpressionSyntax*> right;
 
-        BinaryExpressionSyntax(SyntaxKind kind, Expression leftToken / ArithOperator operatorExpression right)
-            : ExpressionSyntax(kind), left(left), operator(operator), right(right) {
+        BinaryExpression(SyntaxKind kind, not_null<ExpressionSyntax*> left, Token op, not_null<ExpressionSyntax*> right)
+            : ExpressionSyntax(kind), left(left), op(op), right(right) {
             this->left->setParent(this);
-            this->operator->setParent(this);
             this->right->setParent(this);
         }
 
-        explicit BinaryExpressionSyntax(const BinaryExpressionSyntax&) = default;
+        explicit BinaryExpression(const BinaryExpression&) = default;
 
         static bool isKind(SyntaxKind kind);
 
@@ -35,19 +40,17 @@ namespace toy {
         const TokenKind_traits getChild(size_t index) const;
         void setChild(size_t index, TokenOrSyntax child);
     };
-    struct ParenthesizedExpressionSyntax : public ExpressionSyntax {
+    struct ParenthesizedExpression : public ExpressionSyntax {
         Token leftParen;
         not_null<ExpressionSyntax*> inner;
         Token rightParen;
 
-        ParenthesizedExpressionSyntax(SyntaxKind kind, Token / openParen leftParenExpression innerToken / closeParen rightParen)
+        ParenthesizedExpression(SyntaxKind kind, Token leftParen, not_null<ExpressionSyntax*> inner, Token rightParen)
             : ExpressionSyntax(kind), leftParen(leftParen), inner(inner), rightParen(rightParen) {
-            this->leftParen->setParent(this);
             this->inner->setParent(this);
-            this->rightParen->setParent(this);
         }
 
-        explicit ParenthesizedExpressionSyntax(const ParenthesizedExpressionSyntax&) = default;
+        explicit ParenthesizedExpression(const ParenthesizedExpression&) = default;
 
         static bool isKind(SyntaxKind kind);
 
@@ -55,15 +58,14 @@ namespace toy {
         const TokenKind_traits getChild(size_t index) const;
         void setChild(size_t index, TokenOrSyntax child);
     };
-    struct NumberExpressionSyntax : public ExpressionSyntax {
+    struct NumberExpression : public ExpressionSyntax {
         Token value;
 
-        NumberExpressionSyntax(SyntaxKind kind, Token / Number value)
+        NumberExpression(SyntaxKind kind, Token value)
             : ExpressionSyntax(kind), value(value) {
-            this->value->setParent(this);
         }
 
-        explicit NumberExpressionSyntax(const NumberExpressionSyntax&) = default;
+        explicit NumberExpression(const NumberExpression&) = default;
 
         static bool isKind(SyntaxKind kind);
 
@@ -71,4 +73,4 @@ namespace toy {
         const TokenKind_traits getChild(size_t index) const;
         void setChild(size_t index, TokenOrSyntax child);
     };
-} // namespace toy
+}

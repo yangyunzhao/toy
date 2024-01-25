@@ -11,18 +11,18 @@
 namespace toy {
     //! @brief 表示词法单元的种类的枚举类
     enum class TokenKind {
-        Unknown,       ///< 未知，默认
-        Integer,       ///< 整数
-        HexInteger,    ///< 十六进制整数
-        BinaryInteger, ///< 二进制整数
-        Plus,          ///< 加号
-        Minus,         ///< 减号
-        Multiply,      ///< 乘号
-        Divide,        ///< 除号
-        OpenParen,     ///< 左括号
-        CloseParen,    ///< 右括号
-        EndOfFile,     ///< 文件结束标记
-        UnderLine,     ///< 下划线
+        Unknown         ,        ///< 未知，默认
+        Integer         ,        ///< 整数
+        HexInteger      ,        ///< 十六进制整数
+        BinaryInteger   ,        ///< 二进制整数
+        Plus            ,        ///< 加号
+        Minus           ,        ///< 减号
+        Multiply        ,        ///< 乘号
+        Divide          ,        ///< 除号
+        OpenParen       ,        ///< 左括号
+        CloseParen      ,        ///< 右括号
+        EndOfFile       ,        ///< 文件结束标记
+        UnderLine       ,        ///< 下划线
     };
 
     //! @brief 重载的输出流运算符，用于将TokenKind枚举值输出到std::ostream对象
@@ -38,7 +38,7 @@ namespace toy {
 
     //! @brief 包含所有TokenKind枚举值的静态数组
     class TokenKind_traits {
-    public:
-        static const std::array<TokenKind, 12> values; ///< 包含所有TokenKind枚举值的静态数组
+    public: 
+        static const std::array<TokenKind, 12> values;  ///< 包含所有TokenKind枚举值的静态数组
     };
-} // namespace toy
+}  // namespace toy

@@ -18,25 +18,29 @@ namespace toy {
     {% for expr_dict in data.Expression %}
     {% set expr_type = expr_dict.keys() | first %}
     {% set details = expr_dict[expr_type] %}
-    struct {{ expr_type }}Syntax : public ExpressionSyntax {
+    struct {{ expr_type }} : public ExpressionSyntax {
         {% for child_dict in details.Children %}
         {% for child_name, child_type in child_dict.items() %}
-        {% if 'Token' in child_type %}
+        {% if child_type == 'Expression' %}
+        not_null<ExpressionSyntax*> {{ child_name }};
+        {% elif child_type.startswith('Token') %}
         Token {{ child_name }};
         {% else %}
-        not_null<{{ child_type }}Syntax*> {{ child_name }};
+        {{ child_type }} {{ child_name }};
         {% endif %}
         {% endfor %}
         {% endfor %}
 
-        {{ expr_type }}Syntax(SyntaxKind kind, {% for child_dict in details.Children %}{% for child_name, child_type in child_dict.items() %}{% if loop.index > 1 %}, {% endif %}{{ child_type }} {{ child_name }}{% endfor %}{% endfor %}) :
-            ExpressionSyntax(kind){% for child_dict in details.Children %}{% for child_name, child_type in child_dict.items() %}, {{ child_name }}({{ child_name }}){% endfor %}{% endfor %} {
+        {{ expr_type }}(SyntaxKind kind{% for child_dict in details.Children %}{% for child_name, child_type in child_dict.items() %}, {% if child_type == 'Expression' %}not_null<ExpressionSyntax*>{% elif child_type.startswith('Token') %}Token{% else %}{{ child_type }}{% endif %} {{ child_name }}{% endfor %}{% endfor %})
+            : ExpressionSyntax(kind){% for child_dict in details.Children %}{% for child_name, child_type in child_dict.items() %}, {{ child_name }}({{ child_name }}){% endfor %}{% endfor %} {
             {% for child_dict in details.Children %}{% for child_name, child_type in child_dict.items() %}
+            {% if child_type != 'Token' and not child_type.startswith('Token') %}
             this->{{ child_name }}->setParent(this);
+            {% endif %}
             {% endfor %}{% endfor %}
         }
 
-        explicit {{ expr_type }}Syntax(const {{ expr_type }}Syntax&) = default;
+        explicit {{ expr_type }}(const {{ expr_type }}&) = default;
 
         static bool isKind(SyntaxKind kind);
 
