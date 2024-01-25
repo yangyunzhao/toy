@@ -58,18 +58,18 @@ namespace toy {
         return text.substr(startPos, pos - startPos);
     }
 
-    bool Lexer::isHexDigit(char c){
-        return (c >= '0' && c <= '9') || 
-           (c >= 'A' && c <= 'F') || 
-           (c >= 'a' && c <= 'f') ||
-           c == '_';
+    bool Lexer::isHexDigit(char c) {
+        return (c >= '0' && c <= '9') ||
+               (c >= 'A' && c <= 'F') ||
+               (c >= 'a' && c <= 'f') ||
+               c == '_';
     }
 
-    bool Lexer::isDcmDigit(char c){
+    bool Lexer::isDcmDigit(char c) {
         return (c >= '0' && c <= '9') || c == '_';
     }
 
-    bool Lexer::isBinDigit(char c){
+    bool Lexer::isBinDigit(char c) {
         return (c == '0' || c == '1') || c == '_';
     }
 
@@ -85,7 +85,7 @@ namespace toy {
 
             if (isdigit(currentChar)) {
                 spdlog::info("Digit encountered, lexing integer");
-                if (currentChar == '0'){
+                if (currentChar == '0') {
                     char n = peek(1);
                     if (n == 'x' || n == 'X') {
                         spdlog::info("Hexadecimal integer encountered");

@@ -39,6 +39,10 @@ namespace toy {
         //! @param text 标记的文本。
         Token(TokenKind kind, std::string_view text);
 
+        //! @brief 默认构造函数。
+        //! @details kind 为 TokenKind::Unknown，text 为空字符串。
+        Token();
+
         //! @brief 获取标记的类型。
         //! @return 标记的类型。
         TokenKind getKind() const;
