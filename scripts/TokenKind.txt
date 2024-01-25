@@ -1,3 +1,4 @@
+Unknown 未知，默认
 Integer 整数
 HexInteger 十六进制整数
 BinaryInteger 二进制整数
