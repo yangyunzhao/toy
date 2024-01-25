@@ -24,4 +24,4 @@ namespace toy {
     };
 
     const std::type_info* typeFromSyntaxKind(SyntaxKind kind);
-}
+} // namespace toy
