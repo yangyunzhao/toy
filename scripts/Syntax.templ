@@ -1,0 +1,48 @@
+#pragma once
+#include "parser/SyntaxKind.h"
+#include "parser/SyntaxNode.h"
+#include "parser/Token.h"
+#include "util/Util.h"
+#include <variant>
+
+namespace toy {
+
+    {% for base in data.Abstract %}
+    struct {{ base }}Syntax : public SyntaxNode {
+        explicit {{ base }}Syntax(SyntaxKind kind) : SyntaxNode(kind) {}
+        explicit {{ base }}Syntax(const {{ base }}Syntax&) = default;
+        static bool isKind(SyntaxKind kind);
+    };
+    {% endfor %}
+
+    {% for expr_dict in data.Expression %}
+    {% set expr_type = expr_dict.keys() | first %}
+    {% set details = expr_dict[expr_type] %}
+    struct {{ expr_type }}Syntax : public ExpressionSyntax {
+        {% for child_dict in details.Children %}
+        {% for child_name, child_type in child_dict.items() %}
+        {% if 'Token' in child_type %}
+        Token {{ child_name }};
+        {% else %}
+        not_null<{{ child_type }}Syntax*> {{ child_name }};
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+
+        {{ expr_type }}Syntax(SyntaxKind kind, {% for child_dict in details.Children %}{% for child_name, child_type in child_dict.items() %}{% if loop.index > 1 %}, {% endif %}{{ child_type }} {{ child_name }}{% endfor %}{% endfor %}) :
+            ExpressionSyntax(kind){% for child_dict in details.Children %}{% for child_name, child_type in child_dict.items() %}, {{ child_name }}({{ child_name }}){% endfor %}{% endfor %} {
+            {% for child_dict in details.Children %}{% for child_name, child_type in child_dict.items() %}
+            this->{{ child_name }}->setParent(this);
+            {% endfor %}{% endfor %}
+        }
+
+        explicit {{ expr_type }}Syntax(const {{ expr_type }}Syntax&) = default;
+
+        static bool isKind(SyntaxKind kind);
+
+        TokenOrSyntax getChild(size_t index);
+        const TokenKind_traits getChild(size_t index) const;
+        void setChild(size_t index, TokenOrSyntax child);
+    };
+    {% endfor %}
+}
