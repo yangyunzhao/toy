@@ -80,37 +80,37 @@ if(MSVC)
 endif()
 
 # 添加 clang-format 自定义目标
-file(GLOB_RECURSE ALL_SRC
-  "${CMAKE_CURRENT_SOURCE_DIR}/include/**/*.h"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.cpp"
-)
-add_custom_target(
-    code_format
-    COMMAND clang-format -i ${ALL_SRC}
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    COMMENT "Running clang-format on all source files"
-)
+#file(GLOB_RECURSE ALL_SRC
+#  "${CMAKE_CURRENT_SOURCE_DIR}/include/**/*.h"
+#  "${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.cpp"
+#)
+#add_custom_target(
+#    code_format
+#    COMMAND clang-format -i ${ALL_SRC}
+#    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+#    COMMENT "Running clang-format on all source files"
+#)
 
 # 检查是否安装了Doxygen
-find_package(Doxygen)
-
-if(DOXYGEN_FOUND)
-    # 设置Doxyfile.in和Doxyfile的路径
-    set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in)
-    set(DOXYGEN_OUT ${CMAKE_CURRENT_SOURCE_DIR}/doc)
-    set(DOXYGEN_FILE ${DOXYGEN_OUT}/Doxyfile)
-
-    # 添加一个自定义目标来生成API文档
-    add_custom_target(
-        doxygen
-        COMMAND ${CMAKE_COMMAND} -D DOXYGEN_IN=${DOXYGEN_IN} -D DOXYGEN_FILE=${DOXYGEN_FILE} -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/configure_doxyfile.cmake
-        COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_FILE}
-        WORKING_DIRECTORY ${DOXYGEN_OUT}
-        COMMENT "Generating API documentation with Doxygen"
-    )
-else()
-    message("Doxygen needs to be installed to generate the doxygen documentation")
-endif()
+#find_package(Doxygen)
+#
+#if(DOXYGEN_FOUND)
+#    # 设置Doxyfile.in和Doxyfile的路径
+#    set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in)
+#    set(DOXYGEN_OUT ${CMAKE_CURRENT_SOURCE_DIR}/doc)
+#    set(DOXYGEN_FILE ${DOXYGEN_OUT}/Doxyfile)
+#
+#    # 添加一个自定义目标来生成API文档
+#    add_custom_target(
+#        doxygen
+#        COMMAND ${CMAKE_COMMAND} -D DOXYGEN_IN=${DOXYGEN_IN} -D DOXYGEN_FILE=${DOXYGEN_FILE} -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/configure_doxyfile.cmake
+#        COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_FILE}
+#        WORKING_DIRECTORY ${DOXYGEN_OUT}
+#        COMMENT "Generating API documentation with Doxygen"
+#    )
+#else()
+#    message("Doxygen needs to be installed to generate the doxygen documentation")
+#endif()
 
 # 添加一个自定义目标来执行Python脚本
 add_custom_target(
